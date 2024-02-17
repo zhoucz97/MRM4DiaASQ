@@ -85,8 +85,8 @@ class QuadDataProcessor():
     def get_examples(self, data_dir, data_type):
         """See base class."""
         cache_file_path = os.path.join(self.args.cache_path, str(data_type)+str(self.args.top_k)+'.pkl')
-        # examples = self._create_examples(data_dir, data_type)
-        if not os.path.exists(cache_file_path):
+        examples = self._create_examples(data_dir, data_type)
+        '''if not os.path.exists(cache_file_path):
             print('The {} cache does not exist, preprocess the {} data....'.format(data_type, data_type))
             examples = self._create_examples(data_dir, data_type)
             with open(cache_file_path, 'wb') as cache_file:
@@ -94,7 +94,7 @@ class QuadDataProcessor():
         else:
             print('The {} cache exists, load {} data from {}'.format(data_type, data_type, cache_file_path))
             with open(cache_file_path, 'rb') as cache_file:
-                examples = pickle.load(cache_file)
+                examples = pickle.load(cache_file)'''
         return examples
     
     def _add_spec_token_idx(self, span, conv_lens):
@@ -228,7 +228,7 @@ class QuadDataProcessor():
         cs_num = 0
         sss_num, all_sss_num = 0, 0
         
-        with open(os.path.join(self.args.ranker_path, str(self.args.top_k), str(data_type)+'.pkl'), 'rb') as pkl_file:
+        with open(os.path.join(self.args.ranker_path, str(self.args.lan)+'.'+str(self.args.top_k)+'.'+str(data_type)+'.pkl'), 'rb') as pkl_file:
             ranker_result = pickle.load(pkl_file)
         
         dialogs = self._read_orig_files(data_dir, data_type)

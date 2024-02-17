@@ -171,8 +171,8 @@ def do_train(args, seed):
                 
         print('Epoch: {}, Average Loss: {:.4f}'.format(epoch, np.mean(loss_list)))
         
-        if epoch < 25:
-            continue
+        '''if epoch < 25:
+            continue'''
         
         valid_micro_score, _, valid_res = evaluate(args.valid_path, model, eval_dataloader, device)
         format_print('Valid TAOS Quad', *valid_micro_score)
@@ -189,7 +189,7 @@ def do_train(args, seed):
             
             if not os.path.exists(args.output_dir):
                 os.makedirs(args.output_dir)
-            model_save_name = 'roberta-large' + '.k' + str(args.top_k) + '.seed' + str(seed) + '.pt'
+            model_save_name = args.lan + '.k' + str(args.top_k) + '.seed' + str(seed) + '.pt'
             model_path = os.path.join(args.output_dir, model_save_name)
             torch.save(model, model_path)
     
